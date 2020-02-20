@@ -1,0 +1,8 @@
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\obj\Debug\ItemListView.ItemListView.resources
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\obj\Debug\ItemListView.Properties.Resources.resources
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\obj\Debug\ItemListView.csproj.GenerateResource.cache
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\bin\Debug\ItemListView.pdb
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\obj\Debug\ItemListView.pdb
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\bin\Debug\ItemListView.dll.config
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\bin\Debug\ItemListView.dll
+C:\Users\sarizvi\source\repos\ItemListView\ItemListView\obj\Debug\ItemListView.dll
