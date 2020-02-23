@@ -1,6 +1,6 @@
 ﻿namespace ItemListView
 {
-    partial class ItemListView
+    partial class ItemListView<T>
     {
         /// <summary> 
         /// Required designer variable.

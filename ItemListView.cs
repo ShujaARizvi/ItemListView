@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace ItemListView
 {
-    public partial class ItemListView : UserControl
+    public partial class ItemListView<T> : UserControl
     {
         private IList itemList;
         private event EventHandler<ListItemAddEventArgs> OnAdd;
@@ -18,23 +18,12 @@ namespace ItemListView
             InitializeComponent();
             this.OnAdd += ItemListView_OnAdd;
             this.OnRemove += ItemListView_OnRemove;
-        }
-
-
-        /// <summary>
-        /// Iniitlizes the list with the provided type.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type"></param>
-        public void Initialize<T>()
-        {
             itemList = new List<T>();
         }
 
-        /// <summary>
-        /// Inserts an Item into the list.
+        /// Adds an Item to the list.
         /// </summary>
-        public void Add<T>(T item)
+        public void Add(T item)
         {
             var insertionIndex = itemList.Add(item);
             OnAdd(this, new ListItemAddEventArgs
@@ -43,14 +32,13 @@ namespace ItemListView
             });
         }
 
-
         /// <summary>
         /// Removes the given item from the list.
         /// </summary>
         /// <typeparam name="T">Generic type given for the list.</typeparam>
         /// <param name="item">Item to be removed from list.</param>
         /// <returns>Returns true if removal is successful, false if item is not found.</returns>
-        public bool Remove<T>(T item)
+        public bool Remove(T item)
         {
             itemList.Remove(item);
             return true;
