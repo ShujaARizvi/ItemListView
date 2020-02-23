@@ -18,8 +18,8 @@ namespace ItemListView
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            var itemListView = new ItemListView();
-            itemListView.Initialize<string>();
+            var itemListView = new ItemListView<string>();
+            itemListView.SetAdapter();
             itemListView.Add("hello");
             itemListView.Add("hello");
             itemListView.Add("hello");

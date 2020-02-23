@@ -4,12 +4,14 @@ using System.Collections;
 using System;
 using ItemListView.EventArguments;
 using System.Diagnostics;
+using ItemListView.Contracts;
 
 namespace ItemListView
 {
     public partial class ItemListView<T> : UserControl
     {
         private IList itemList;
+        private BaseAdapter listAdapter;
         private event EventHandler<ListItemAddEventArgs> OnAdd;
         private event EventHandler<ListItemAddEventArgs> OnRemove;
 
@@ -18,7 +20,6 @@ namespace ItemListView
             InitializeComponent();
             this.OnAdd += ItemListView_OnAdd;
             this.OnRemove += ItemListView_OnRemove;
-            itemList = new List<T>();
         }
 
         /// Adds an Item to the list.
@@ -51,6 +52,11 @@ namespace ItemListView
         public void RemoveAt(int index)
         {
             itemList.RemoveAt(index);
+        }
+
+        public void SetAdapter(BaseAdapter adapter)
+        {
+            this.listAdapter = adapter;
         }
 
         #region EVENT HANDLERS
