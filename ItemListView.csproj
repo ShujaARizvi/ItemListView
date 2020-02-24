@@ -52,13 +52,13 @@
     <Compile Include="Adapters\ListAdapter.cs" />
     <Compile Include="Contracts\IBaseAdapter.cs" />
     <Compile Include="Contracts\IListAdapter.cs" />
+    <Compile Include="EventArgs\OnItemClickEventArgs.cs" />
     <Compile Include="ItemListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ItemListView.Designer.cs">
       <DependentUpon>ItemListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ItemListView.resx">
       <DependentUpon>ItemListView.cs</DependentUpon>

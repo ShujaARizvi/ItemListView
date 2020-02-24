@@ -33,6 +33,7 @@
             // 
             // ListPanel
             // 
+            this.ListPanel.AutoScroll = true;
             this.ListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListPanel.Location = new System.Drawing.Point(0, 0);
             this.ListPanel.Name = "ListPanel";
