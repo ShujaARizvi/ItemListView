@@ -2,7 +2,6 @@
 using ItemListView.EventArgs;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ItemListView.Adapters
@@ -12,51 +11,37 @@ namespace ItemListView.Adapters
         private List<Control> uiListElements;
         private List<Item> dataItems;
         private Panel itemsPanel;
+        // List view instance bound with this adapter
+        public ItemListView listView;
 
         private int position = 5;
         private readonly int factor = 2;
 
-        public int SelectedIndex { get; private set; }
-
-        /// <summary>
-        /// UI Elements that are displayed on the list.
-        /// Access to them give developers ability to modify the controls at their will.
-        /// </summary>
-        public System.Windows.Forms.Control.ControlCollection Controls {
-            get 
-            {
-                return itemsPanel.Controls;
-            }
-        }
-        private event EventHandler<OnItemClickEventArgs<Control>> OnItemClick;
-
         public ListAdapter(List<Item> items)
         {
-            SelectedIndex = -1;
             dataItems = items;
             uiListElements = new List<Control>();
-            OnItemClick += OnItemClickListener;
             PopulateUIElementsList();
         }
 
-
-        public void Bind(Panel listPanel)
+        public void Bind(UserControl listView)
         {
-            itemsPanel = listPanel;
+            this.listView = listView as ItemListView;
+            itemsPanel = this.listView.Panel;
             foreach(var element in uiListElements)
             {
-                listPanel.Controls.Add(element);
+                itemsPanel.Controls.Add(element);
                 element.Top = position;
                 position = element.Top + element.Height + factor;
             }
         }
-        
+
         public void NotifyDataSetChanged()
         {
             PopulateUIElementsList();
             itemsPanel.Controls.Clear();
             position = 5;
-            this.Bind(itemsPanel);
+            this.Bind(listView);
         }
 
         private void PopulateUIElementsList()
@@ -66,20 +51,22 @@ namespace ItemListView.Adapters
             foreach (var item in dataItems)
             {
                 Control curElement = this.Draw(new Control(), item);
+                curElement.Name = index.ToString();
+                index++;
                 curElement.Click += (s, e) =>
                 {
-                    OnItemClick(s, new OnItemClickEventArgs<Control> { Index = index, Item = curElement });
+                    this.listView.TriggerItemClick(s, Convert.ToInt32(curElement.Name), curElement);
                 };
-                curElement.Name = index.ToString(); index++;
                 uiListElements.Add(curElement);
             }
         }
         
-        public virtual void OnItemClickListener(object sender, OnItemClickEventArgs<Control> e) 
-        {
-            this.SelectedIndex = e.Index;
-        }
 
         public abstract Control Draw(Control control, Item item);
+
+        System.Windows.Forms.Control.ControlCollection IBaseAdapter.GetListControls()
+        {
+            return itemsPanel.Controls;
+        }
     }
 }
