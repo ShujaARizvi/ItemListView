@@ -53,6 +53,7 @@
     <Compile Include="Contracts\IBaseAdapter.cs" />
     <Compile Include="Contracts\IListAdapter.cs" />
     <Compile Include="EventArgs\OnItemClickEventArgs.cs" />
+    <Compile Include="EventArgs\SelectedIndexChangedEventArgs.cs" />
     <Compile Include="ItemListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

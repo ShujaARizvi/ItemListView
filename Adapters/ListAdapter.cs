@@ -12,7 +12,7 @@ namespace ItemListView.Adapters
         private List<Item> dataItems;
         private Panel itemsPanel;
         // List view instance bound with this adapter
-        public ItemListView listView;
+        private ItemListView listView;
 
         private int position = 5;
         private readonly int factor = 2;
@@ -41,6 +41,7 @@ namespace ItemListView.Adapters
             PopulateUIElementsList();
             itemsPanel.Controls.Clear();
             position = 5;
+            this.listView.SelectedIndex = -1;
             this.Bind(listView);
         }
 
