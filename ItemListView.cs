@@ -18,8 +18,10 @@ namespace ItemListView
         /// UI Elements that are displayed on the list.
         /// Access to them give developers ability to modify the controls at their will.
         /// </summary>
-        public ControlCollection ListElements {
-            get {
+        public ControlCollection ListElements 
+        {
+            get 
+            {
                 return listAdapter.GetListControls();
             }
         }
@@ -64,6 +66,7 @@ namespace ItemListView
 
         public void Deselect(Func<object, object> method)
         {
+            this.SelectedIndex = -1;
             method(new object());
         }
     }

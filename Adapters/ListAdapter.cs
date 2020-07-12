@@ -8,6 +8,7 @@ namespace ItemListView.Adapters
 {
     public abstract class ListAdapter<Control, Item> : IListAdapter<Control, Item> where Control : System.Windows.Forms.Control, new()
     {
+        private System.Windows.Forms.Control optionalHeader;
         private List<Control> uiListElements;
         private List<Item> dataItems;
         private Panel itemsPanel;
@@ -24,11 +25,25 @@ namespace ItemListView.Adapters
             PopulateUIElementsList();
         }
 
+        public ListAdapter(List<Item> items, System.Windows.Forms.Control header)
+        {
+            dataItems = items;
+            optionalHeader = header;
+            uiListElements = new List<Control>();
+            PopulateUIElementsList();
+        }
+
         public void Bind(UserControl listView)
         {
             this.listView = listView as ItemListView;
             itemsPanel = this.listView.Panel;
-            foreach(var element in uiListElements)
+            if (optionalHeader != null)
+            {
+                itemsPanel.Controls.Add(optionalHeader);
+                optionalHeader.Top = position;
+                position = optionalHeader.Top + optionalHeader.Height + factor;
+            }
+            foreach (var element in uiListElements)
             {
                 itemsPanel.Controls.Add(element);
                 element.Top = position;
