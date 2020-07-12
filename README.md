@@ -167,7 +167,7 @@ private void ItemListView1_SelectedIndexChanged(object sender, SelectedIndexChan
 }
 ```
 
-Checkout the code for the demo application  [here](https://play.google.com/store/apps/details?id=com.phoenixsoft.legithashtagsforinstagram).
+Checkout the code for the demo application [here](https://github.com/ShujaARizvi/ItemListView-Demo-App).
 
 [usercontrol]: https://user-images.githubusercontent.com/45180820/87250605-6ace0a00-c47f-11ea-8b75-aad6ad5c7c46.png "User Control"
 [headerusercontrol]: https://user-images.githubusercontent.com/45180820/87250779-c0ef7d00-c480-11ea-9395-181103f2f139.png
