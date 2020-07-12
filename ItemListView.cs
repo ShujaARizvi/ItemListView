@@ -1,80 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Windows.Forms;
-using System.Collections;
-using System;
-using ItemListView.EventArguments;
-using System.Diagnostics;
+using ItemListView.Contracts;
+using ItemListView.EventArgs;
 
 namespace ItemListView
 {
     public partial class ItemListView : UserControl
     {
-        private IList itemList;
-        private event EventHandler<ListItemAddEventArgs> OnAdd;
-        private event EventHandler<ListItemAddEventArgs> OnRemove;
+        private IBaseAdapter listAdapter;
+        internal event Func<object,OnItemClickEventArgs<Control>, object> OnItemClick;
+        
+        public event EventHandler<SelectedIndexChangedEventArgs> SelectedIndexChanged;
+
+        public int SelectedIndex { get; internal set; }
+
+        /// <summary>
+        /// UI Elements that are displayed on the list.
+        /// Access to them give developers ability to modify the controls at their will.
+        /// </summary>
+        public ControlCollection ListElements 
+        {
+            get 
+            {
+                return listAdapter.GetListControls();
+            }
+        }
+
+        internal Panel Panel 
+        {
+            get 
+            {
+                return this.ListPanel;
+            }
+        }
 
         public ItemListView()
         {
             InitializeComponent();
-            this.OnAdd += ItemListView_OnAdd;
-            this.OnRemove += ItemListView_OnRemove;
+            SelectedIndex = -1;
         }
 
-
-        /// <summary>
-        /// Iniitlizes the list with the provided type.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type"></param>
-        public void Initialize<T>()
+        internal void TriggerItemClick(object sender, int index, Control control)
         {
-            itemList = new List<T>();
+            SelectedIndex = index;
+            this.OnItemClick?.Invoke(sender, new OnItemClickEventArgs<Control> { Index = index, Item = control });
+            this.SelectedIndexChanged?.Invoke(sender, new SelectedIndexChangedEventArgs { Index = index });
         }
 
-        /// <summary>
-        /// Inserts an Item into the list.
-        /// </summary>
-        public void Add<T>(T item)
+        public void SetAdapter(IBaseAdapter adapter)
         {
-            var insertionIndex = itemList.Add(item);
-            OnAdd(this, new ListItemAddEventArgs
-            {
-                Index = insertionIndex
-            });
+            this.listAdapter = adapter;
+            adapter.Bind(this);
         }
 
-
-        /// <summary>
-        /// Removes the given item from the list.
-        /// </summary>
-        /// <typeparam name="T">Generic type given for the list.</typeparam>
-        /// <param name="item">Item to be removed from list.</param>
-        /// <returns>Returns true if removal is successful, false if item is not found.</returns>
-        public bool Remove<T>(T item)
+        public void SetOnItemClickListener(Func<object, OnItemClickEventArgs<Control>, object> itemClickListener)
         {
-            itemList.Remove(item);
-            return true;
+            OnItemClick += itemClickListener;
         }
 
-        /// <summary>
-        /// Removes an item at the given index.
-        /// </summary>
-        /// <param name="index">The list index to remove item at.</param>
-        public void RemoveAt(int index)
+        public void Deselect()
         {
-            itemList.RemoveAt(index);
+            this.SelectedIndex = -1;
         }
 
-        #region EVENT HANDLERS
-        private void ItemListView_OnAdd(object sender, ListItemAddEventArgs e)
-        {
-            Debug.WriteLine(e.Index);
-        }
 
-        private void ItemListView_OnRemove(object sender, ListItemAddEventArgs e)
+        public void Deselect(Func<object, object> method)
         {
-            throw new NotImplementedException();
+            this.SelectedIndex = -1;
+            method(new object());
         }
-        #endregion
     }
 }

@@ -28,18 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ListPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
+            // 
+            // ListPanel
+            // 
+            this.ListPanel.AutoScroll = true;
+            this.ListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListPanel.Location = new System.Drawing.Point(0, 0);
+            this.ListPanel.Name = "ListPanel";
+            this.ListPanel.Size = new System.Drawing.Size(100, 100);
+            this.ListPanel.TabIndex = 0;
             // 
             // ItemListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ListPanel);
             this.Name = "ItemListView";
-            this.Size = new System.Drawing.Size(490, 489);
+            this.Size = new System.Drawing.Size(100, 100);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel ListPanel;
     }
 }

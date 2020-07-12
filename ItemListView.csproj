@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B8682057-A55A-4D74-B5A9-4A60CD7A667F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ItemListView</RootNamespace>
     <AssemblyName>ItemListView</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -49,14 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArguments\ListItemAddEventArgs.cs" />
+    <Compile Include="Adapters\ListAdapter.cs" />
+    <Compile Include="Contracts\IBaseAdapter.cs" />
+    <Compile Include="Contracts\IListAdapter.cs" />
+    <Compile Include="EventArgs\OnItemClickEventArgs.cs" />
+    <Compile Include="EventArgs\SelectedIndexChangedEventArgs.cs" />
     <Compile Include="ItemListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ItemListView.Designer.cs">
       <DependentUpon>ItemListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ItemListView.resx">
       <DependentUpon>ItemListView.cs</DependentUpon>
@@ -83,5 +86,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
